@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head><style type="text/css">
+
+body {
+background: #f0f0f0;
+color: #111;
+font-family: courier new;
+font-size: 1.2em;
+padding: 25px;
+}
+
+button {
+font-family: courier new;
+font-size: 0.8em;
+padding: 10px;
+}
+
+</style>
+</head>
+<body>
+
+<script>
+
+// fruit
+
+var fruit = prompt("Your favorite fruit?","apple");
+var char1 = fruit.charAt(0);
+var test = char1.toUpperCase();
+
+document.write(test + " is for " + fruit + ".");
+
+var output = Math.floor((Math.random() * 6) + 1);
+document.write(" You have " + output + " " + fruit + "s. <br><br> You also roll a pair of dice.<br>");
+
+// dice
+
+var roll1 = Math.floor((Math.random() * 6) + 1);
+var roll2 = Math.floor((Math.random() * 6) + 1);
+
+document.write("You got " + roll1 + " and " + roll2 + ".");
+
+if (roll1 == 1 && roll2 == 1) {
+document.write(" Snake eyes!");
+}
+else if (roll1==roll2) {
+document.write(" Doubles!");
+}
+
+var sum = roll1 + roll2;
+var total1 = roll1 + roll2 + output;
+var total2 = output - 1;
+
+document.write("<br>If you buy " + sum + " " + fruit + "s, you will have " + total1 + " total.<br> ");
+
+if (total2 < 1) {
+document.write("If you eat one " + fruit + ", you will have none.");
+}
+else {
+document.write("If you eat one " + fruit + ", you will have " + total2 + ".");
+}
+
+</script>
+
+<!-- buttons !-->   
+
+<br><br>
+<button id="button1" onclick="buy(), del()" style="background: palegreen;">Would you like to buy more?</button> 
+<button id="button2" onclick="eat(), del()" style="background: pink;">Would you like to eat one?</button>
+<button id="button3" onclick="nothing(), del()" style="background: #ccc;">Do nothing.</button>
+
+<script>
+
+// functions
+
+function buy() {
+text = "<b>You bought " + sum + " " + fruit + "s. </b><br>You now have " + total1 + " " + fruit + "s. ";
+document.getElementById("text").innerHTML = (text);
+}
+
+function eat() {
+text = "<b>You ate one " + fruit + ".</b><br> You now have " + total2 + " " + fruit + "s. ";
+document.getElementById("text").innerHTML = (text);
+}
+
+function nothing() {
+var rotten =  Math.floor((Math.random() * output) + 1);
+var output2 = output - rotten;
+
+if (output <= rotten) {
+text = "<b> " + rotten + " of your " + fruit + "s rotted! ): </b><br> You have none left!";
+}
+else {
+text = "<b>" + rotten + " of your " + fruit + "s rotted! ):  </b><br>You have " + output2 + " left!";
+}
+document.getElementById("text").innerHTML = (text);
+}
+
+function del() {
+document.getElementById("button1").style.display="none";
+document.getElementById("button2").style.display="none";
+document.getElementById("button3").style.display="none";
+}
+
+</script>
+
+<p id="text"></p>
+
+</body>
+</html>

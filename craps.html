@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head><style type="text/css">
+
+body {
+background: #f0f0f0;
+color: #111;
+font-family: courier new;
+font-size: 1em;
+padding: 25px;
+}
+
+button {
+font-family: courier new;
+font-size: 0.8em;
+padding: 10px;
+}
+
+</style>
+</head>
+<body>
+<p id="para"></p>
+<p id="para2"></p>
+<p id="para3"></p>
+<p id="buttonset"></p>
+<p id="buttonset2"></p>
+<script>
+
+var money = 1000;
+
+// text replace
+
+function para(text1) {
+document.getElementById("para").innerHTML = text1;
+}
+
+function para2(text2) {
+	document.getElementById("para2").innerHTML = text2;
+}
+
+function para3(text3) {
+	document.getElementById("para3").innerHTML = text3;
+}
+
+
+//document.write("You have $" + money + ".<br>");
+
+//var text = "You have $" + money + ".<br>";
+//document.getElementById("para").innerHTML = text;
+
+buttonset = '<button onclick="bet(25), del()">Bet $25</button> <br><button onclick="bet(50), del()">Bet $50</button> <br><button onclick="bet(100), del()">Bet $100</button> <br>';
+document.getElementById("buttonset").innerHTML = buttonset;
+
+para("You have $" + money + ".<br>");
+
+
+// bets
+
+function bet(bet) {
+	money = money - bet;
+	para("You have $" + money + ".<br>");
+	var roll1 = Math.floor((Math.random() * 6) + 1);
+	var roll2 = Math.floor((Math.random() * 6) + 1);
+	var roll = roll1 + roll2;
+
+	para2("You rolled: " + roll1 + " and " + roll2 + ". <br> Total: " + roll);
+	comeout();
+}
+
+function bet2(bet2) {
+	money = money - bet2;
+	para("You have $" + money + ".<br>");
+	pointphase();
+}
+
+
+// delete buttons
+
+function del() {
+//document.getElementById("buttonset").style.display="none";
+//document.getElementById("buttonset2").style.display="none";
+}
+
+// phases
+
+
+function comeout() {
+
+
+	if (roll == 11 || roll == 7) {
+	para3("<br> You win!" );
+	money = money + (2 * bet);
+	para("You have $" + money + ".<br>");
+	comeout();
+	}
+	else if (roll == 2 || roll == 3 || roll == 12) {
+	para3("<br> You lose!");
+	para("You have $" + money + ".<br>");
+	comeout();
+	}
+	else {
+	para3("<br> Point set.<br>");
+	
+	/*var buttonset2 = '<button onclick="bet2(25), del()">Bet $25</button> <br><button onclick="bet2(50), del()">Bet $50</button> <br><button onclick="bet2(100), del()">Bet $100</button> <br>';
+	document.getElementById("buttonset2").innerHTML = buttonset2;*/
+
+	para("You have $" + money + ".<br>");
+	pointphase();
+	}
+}
+
+function pointphase() {
+
+	var roll3 = Math.floor((Math.random() * 6) + 1);
+	var roll4 = Math.floor((Math.random() * 6) + 1);
+	var second_roll = roll3 + roll4;
+
+	para2("You rolled: " + roll3 + " and " + roll4 + ". <br> Total: " + second_roll + "<br>");
+
+	if (second_roll==roll) { 
+	para3("<br> You win!<br><br>");
+	para("You have $" + money + ".<br>");
+	}
+	else if (second_roll==7) {
+	para3("<br> You lose!<br><br>");
+	para("You have $" + money + ".<br>");
+	}
+	else {
+	para3("<br> You roll again!<br>")
+	pointphase();
+	}
+	
+}
+
+</script>
+
+
+
+</body>
+</html>
+
